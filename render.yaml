@@ -18,6 +18,8 @@ services:
         value: true
       - key: DEFAULT_BROWSER
         value: chromium
+      - key: PRODUCTION_TIMEOUT_MS
+        value: 30000
       - key: ACTION_RETRIES
         value: 2
       - key: RATE_LIMIT_PER_MINUTE

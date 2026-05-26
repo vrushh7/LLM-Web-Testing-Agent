@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     BROWSER_HEADLESS: bool = True
     DEFAULT_BROWSER: Literal["chromium", "firefox", "webkit"] = "chromium"
     DEFAULT_TIMEOUT_MS: int = 10000
+    PRODUCTION_TIMEOUT_MS: int = 30000
     ACTION_RETRIES: int = 2
     EVIDENCE_SCREENSHOTS: bool = True
     SLOW_MO_MS: int = 0

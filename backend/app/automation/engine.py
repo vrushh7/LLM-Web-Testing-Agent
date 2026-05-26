@@ -53,13 +53,16 @@ class PlaywrightEngine:
         self.on_step = on_step
 
     async def execute(self, steps: list[TestStep], options: EngineOptions) -> tuple[int, int]:
+        default_timeout = (
+            settings.PRODUCTION_TIMEOUT_MS if settings.ENV == "production" else settings.DEFAULT_TIMEOUT_MS
+        )
         context = await browser_pool.new_context(
             browser_name=options.browser,
             headless=options.headless,
             storage_state_path=options.session_state_path,
         )
         page = await context.new_page()
-        page.set_default_timeout(settings.DEFAULT_TIMEOUT_MS)
+        page.set_default_timeout(default_timeout)
 
         passed = 0
         failed = 0
@@ -138,7 +141,10 @@ class PlaywrightEngine:
         )
 
     async def _execute_action(self, page: Page, step: TestStep, run_id: str, index: int) -> tuple[str, str | None]:
-        timeout = step.timeout_ms or settings.DEFAULT_TIMEOUT_MS
+        default_timeout = (
+            settings.PRODUCTION_TIMEOUT_MS if settings.ENV == "production" else settings.DEFAULT_TIMEOUT_MS
+        )
+        timeout = step.timeout_ms or default_timeout
         action = step.action.value
         if action != "open_url":
             await self._handle_common_interstitials(page)
@@ -146,9 +152,13 @@ class PlaywrightEngine:
         if action == "open_url":
             url = self._normalize_url(str(step.value or step.target or ""))
             url = self._normalize_mmt_entry_url(url)
-            await page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+            await page.goto(url, wait_until="commit", timeout=timeout)
             try:
-                await page.wait_for_load_state("networkidle", timeout=min(timeout, 8000))
+                await page.wait_for_load_state("domcontentloaded", timeout=min(timeout, 12000))
+            except Exception:
+                pass
+            try:
+                await page.wait_for_load_state("networkidle", timeout=min(timeout, 5000))
             except Exception:
                 pass
             await self._handle_common_interstitials(page)

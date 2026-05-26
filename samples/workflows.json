@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Amazon search",
+    "prompt": "Go to Amazon and search iPhone 16",
+    "expected_plan_shape": [
+      {"action": "open_url", "value": "https://www.amazon.in"},
+      {"action": "search", "target": "searchbox", "value": "iPhone 16"},
+      {"action": "verify_element", "target": "first_product"}
+    ]
+  },
+  {
+    "name": "Invalid password",
+    "prompt": "Open https://example-login.test, login with email demo@example.com and password wrong-pass, then verify invalid password message",
+    "expected_plan_shape": [
+      {"action": "open_url", "value": "https://example-login.test"},
+      {"action": "login", "value": {"username": "demo@example.com", "password": "wrong-pass"}},
+      {"action": "verify_text", "value": "invalid password"}
+    ]
+  },
+  {
+    "name": "Cart flow",
+    "prompt": "Go to the shop, search running shoes, open the first product, add it to cart, and verify checkout button exists",
+    "expected_plan_shape": [
+      {"action": "open_url"},
+      {"action": "search", "target": "searchbox", "value": "running shoes"},
+      {"action": "click", "target": "first_product"},
+      {"action": "add_to_cart"},
+      {"action": "verify_element", "target": "checkout_button"}
+    ]
+  }
+]
+

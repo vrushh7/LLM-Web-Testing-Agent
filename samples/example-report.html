@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Sample Autonomous Test Report</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #070a12; color: #edf3ff; }
+    main { max-width: 900px; margin: auto; padding: 32px; }
+    section, table { width: 100%; border: 1px solid #263145; border-radius: 8px; background: #0f1626; }
+    section { padding: 20px; margin-bottom: 18px; }
+    th, td { padding: 12px; border-bottom: 1px solid #263145; text-align: left; }
+    .pass { color: #86efac; }
+  </style>
+</head>
+<body>
+<main>
+  <section>
+    <h1>Sample Report</h1>
+    <p>Prompt: Go to https://example.com and verify More information exists</p>
+    <p class="pass">Status: PASSED</p>
+  </section>
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Status</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>open_url</td><td class="pass">passed</td><td>Opened https://example.com</td></tr>
+      <tr><td>2</td><td>verify_text</td><td class="pass">passed</td><td>Verified text: More information</td></tr>
+    </tbody>
+  </table>
+</main>
+</body>
+</html>
+

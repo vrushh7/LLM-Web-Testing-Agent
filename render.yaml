@@ -13,7 +13,7 @@ services:
       - key: DATABASE_URL
         value: sqlite+aiosqlite:///./data/agent.db
       - key: FRONTEND_ORIGINS
-        value: https://your-vercel-app.vercel.app
+        value: https://llm-web-testing-agent.vercel.app
       - key: BROWSER_HEADLESS
         value: true
       - key: DEFAULT_BROWSER

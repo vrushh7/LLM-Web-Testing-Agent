@@ -14,7 +14,11 @@ class Settings(BaseSettings):
     API_PREFIX: str = "/api"
     DATABASE_URL: str = "sqlite+aiosqlite:///./data/agent.db"
 
-    FRONTEND_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
+    FRONTEND_ORIGINS: str = (
+        "http://localhost:5173,"
+        "http://127.0.0.1:5173,"
+        "https://llm-web-testing-agent.vercel.app"
+    )
     RATE_LIMIT_PER_MINUTE: int = 60
 
     GEMINI_API_KEY: str | None = None

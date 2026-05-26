@@ -18,7 +18,7 @@ class BrowserPool:
         return self._playwright
 
     async def get_browser(self, browser_name: str, headless: bool | None = None) -> Browser:
-        headless_value = settings.BROWSER_HEADLESS if headless is None else headless
+        headless_value = settings.BROWSER_HEADLESS if settings.ENV == "production" or headless is None else headless
         key = f"{browser_name}:{headless_value}"
         existing = self._browsers.get(key)
         if existing and existing.is_connected():

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: llm-web-testing-agent-api
+    runtime: docker
+    plan: free
+    branch: main
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health
+    envVars:
+      - key: ENV
+        value: production
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./data/agent.db
+      - key: FRONTEND_ORIGINS
+        value: https://your-vercel-app.vercel.app
+      - key: BROWSER_HEADLESS
+        value: true
+      - key: DEFAULT_BROWSER
+        value: chromium
+      - key: ACTION_RETRIES
+        value: 2
+      - key: RATE_LIMIT_PER_MINUTE
+        value: 60
+      - key: SECRET_KEY
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: AI_PROVIDER_PRIORITY
+        value: gemini,openai
